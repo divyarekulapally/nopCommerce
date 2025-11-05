@@ -1,0 +1,12 @@
+name: my dotnet project
+on:
+  push:
+    branches:
+      -devops
+jobs:
+  dotnet-publish:
+    runs-on: 'self-hosted'
+    steps:
+      - name: This is my dotnet project
+        run: dotnet publish  -c Release src/Presentation/Nop.Web/Nop.Web.csproj -o demo
+        
