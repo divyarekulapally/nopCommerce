@@ -25,8 +25,8 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
           args: >
-            -Dsonar.projectKey=YOUR_PROJECT_KEY
-            -Dsonar.organization=YOUR_ORGANIZATION_KEY
+            -Dsonar.projectKey=divyarekulapally_nopCommerce
+            -Dsonar.organization=divyarekulapally
             -Dsonar.projectName="My Dotnet Project"
             -Dsonar.sources=src
 
