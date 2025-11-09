@@ -1,23 +1,34 @@
 name: my dotnet project 1
+
 on:
   push:
     branches:
       - develop
+
 jobs:
   dotnet-publish:
-    runs-on: 'ubuntu-latest'
+    runs-on: ubuntu-latest
+
     steps:
-      - name: code checkout
+      - name: Checkout code
         uses: actions/checkout@v4
-      - name: sonarcloud scan
-        uses: SonarSource/sonarqube-scan-action@v6
-        env: 
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      - name: This is my dotnet project
+
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "9.0.100"
-      - name: dotnet publish
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.projectKey=YOUR_PROJECT_KEY
+            -Dsonar.organization=YOUR_ORGANIZATION_KEY
+            -Dsonar.projectName="My Dotnet Project"
+            -Dsonar.sources=src
+
+      - name: Publish .NET project
         run: dotnet publish -c Release src/Presentation/Nop.Web/Nop.Web.csproj -o demo
-        
