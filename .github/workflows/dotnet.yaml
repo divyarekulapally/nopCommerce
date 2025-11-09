@@ -5,10 +5,21 @@ on:
       - develop
 jobs:
   dotnet-publish:
-    runs-on: 'self-hosted'
+    runs-on: 'ubuntu-latest'
     steps:
       - name: code checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
+      - name: sonarcloud scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env: 
+          sonartoken: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+          sonarurl: ${{ secrets.SONAR_HOST_URL }}
       - name: This is my dotnet project
+        uses: action/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.100"
+      - name: dotnet publish
         run: dotnet publish  -c Release src/Presentation/Nop.Web/Nop.Web.csproj -o demo
         
