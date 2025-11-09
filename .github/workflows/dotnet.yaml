@@ -2,11 +2,13 @@ name: my dotnet project
 on:
   push:
     branches:
-      -devops
+      - devops
 jobs:
   dotnet-publish:
     runs-on: 'self-hosted'
     steps:
+      - name: code checkout
+        uses: actions/checkout@v5
       - name: This is my dotnet project
         run: dotnet publish  -c Release src/Presentation/Nop.Web/Nop.Web.csproj -o demo
         
