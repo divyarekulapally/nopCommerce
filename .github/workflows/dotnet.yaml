@@ -27,7 +27,7 @@ jobs:
           args: >
             -Dsonar.projectKey=divyarekulapally_nopCommerce
             -Dsonar.organization=divyarekulapally
-            -Dsonar.projectName="My Dotnet Project"
+            -Dsonar.projectName="nopCommerce"
             -Dsonar.sources=src
 
       - name: Publish .NET project
