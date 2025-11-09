@@ -12,10 +12,8 @@ jobs:
       - name: sonarcloud scan
         uses: SonarSource/sonarqube-scan-action@v5
         env: 
-          sonartoken: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-          sonarurl: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       - name: This is my dotnet project
         uses: action/setup-dotnet@v4
         with:
