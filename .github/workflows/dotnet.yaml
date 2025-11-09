@@ -2,7 +2,7 @@ name: my dotnet project 1
 on:
   push:
     branches:
-      - devops
+      - develop
 jobs:
   dotnet-publish:
     runs-on: 'self-hosted'
