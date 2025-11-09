@@ -1,4 +1,4 @@
-name: my dotnet project
+name: my dotnet project 1
 on:
   push:
     branches:
