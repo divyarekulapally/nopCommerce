@@ -17,19 +17,28 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ vars.AWS_REGION }}
 
       - name: ECR login
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: build and push
         uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          tags: dotnet:1.1
 
       - name: docker commands
         run: |
-          aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 921664588831.dkr.ecr.ap-south-1.amazonaws.com/ecr_dotnet
+          # Login to ECR
+          aws ecr get-login-password --region ${{ vars.AWS_REGION }} | docker login --username AWS --password-stdin 921664588831.dkr.ecr.ap-south-1.amazonaws.com/ecr_dotnet
+          
+          # Tag the Docker image
           docker image tag dotnet:1.1 921664588831.dkr.ecr.ap-south-1.amazonaws.com/ecr_dotnet:latest
-          docker push 921664588831.dkr.ecr.ap-south-1.amazonaws.com/ecr_dotnet
+          
+          # Push the image to ECR
+          docker push 921664588831.dkr.ecr.ap-south-1.amazonaws.com/ecr_dotnet:latest
 
       - name: EKS with manifestfile
         uses: actions-hub/kubectl@master
