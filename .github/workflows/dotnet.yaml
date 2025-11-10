@@ -19,11 +19,11 @@ jobs:
       run: dotnet publish -c Release src/Presentation/Nop.Web/Nop.Web.csproj -o demo
     - name: SonarQube Scan
       uses: SonarSource/sonarcloud-github-action@v3
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        with:
-          args: >
-            -Dsonar.projectKey=divyarekulapally_nopCommerce
-            -Dsonar.organization=divyarekulapally
-            -Dsonar.host.url=https://sonarcloud.io
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      with:
+        args: >
+          -Dsonar.projectKey=divyarekulapally_nopCommerce
+          -Dsonar.organization=divyarekulapally
+          -Dsonar.host.url=https://sonarcloud.io
